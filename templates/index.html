@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% import "post-preview.html" as post_macros %}
+
+{% block content %}
+  <div class="content">
+    {{ section.content | safe }}
+
+    {% if config.extra.latest_posts and config.extra.latest_posts_num %}
+      {% set blog_path = "blog" %}
+      {% if config.extra.blog_path %}
+        {% set_global blog_path = config.extra.blog_path %}
+      {% endif %}
+      {% set blogs = get_section(path=blog_path ~ "/_index.md") %}
+      {% set latest_posts_num = config.extra.latest_posts_num %}
+      {% set latest_list = blogs.pages|slice(end=latest_posts_num) %}
+
+        <div class="latest-container">
+            <h2 class="latest-posts">{{ config.extra.latest_posts }}</h2>
+          {% if latest_list %}
+            {% for post in latest_list %}
+              {{ post_macros::post_preview(post=post) }}
+            {% endfor %}
+          {% endif %}
+        </div>
+    {% endif %}
+
+  </div>
+{% endblock content %}

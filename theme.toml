@@ -1,0 +1,48 @@
+name = "edge"
+description = "A lightweight, responsive, and minimalist theme for Zola"
+license = "MIT"
+homepage = "https://github.com/sesav/zola-theme-edge"
+min_version = "0.17.0"
+demo = "https://zola-theme-edge.vercel.app"
+
+[author]
+name = "Sergey Silaev"
+homepage = "https://github.com/sesav"
+
+[original]
+author = "Sergey Silaev"
+homepage = "https://github.com/sesav/zola-theme-edge"
+repo = "https://github.com/sesav/zola-theme-edge"
+
+[extra]
+# Theme features
+blog = true
+pagination = true
+tags = true
+categories = true
+search = false
+analytics = false
+comments = false
+syntax_highlighting = true
+responsive = true
+dark_mode = false
+
+# Required taxonomies
+required_taxonomies = ["tags", "categories"]
+
+# Template features
+templates = [
+    "404.html",
+    "base.html", 
+    "index.html",
+    "page.html",
+    "blog.html",
+    "blog-post.html"
+]
+
+# Shortcodes included
+shortcodes = ["youtube", "image", "email"]
+
+# Sass files
+stylesheets = ["sass/style.scss"]
+

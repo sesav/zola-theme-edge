@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <style>:root {--primary-color: {{ config.extra.primary }};--secondary-color: {{ config.extra.secondary }};} </style>
+
+    {% if config.extra.icon %}
+      <link rel="icon" href="{{ config.extra.icon }}" />
+      {% for size in [48,72,96,144,192,256] -%}
+        {% set icon = resize_image(path=config.extra.icon, width=size, height=size, op="fill") -%}
+        <link rel="apple-touch-icon" sizes="{{size}}x{{size}}" href="{{ icon.url }}" />
+      {% endfor %}
+    {% endif %}
+
+    <meta property="og:type" content="website">
+    {% if config.extra.author %}
+    <meta property="og:site_name" content="{{ config.extra.author.name }}" />
+    {% endif %}
+
+    {% if page.extra.thumbnail %}
+      <meta property="og:image" content="{{ get_url(path=page.path ~ page.extra.thumbnail) }}">
+    {% elif page.extra.static_thumbnail %}
+      {%if page.extra.static_thumbnail is matching("^http[s]?://") %}
+        <meta property="og:image" content="{{ page.extra.static_thumbnail }}">
+      {% else %}
+        <meta property="og:image" content="{{ get_url(path=page.extra.static_thumbnail) }}">
+      {% endif %}
+    {% elif config.extra.default_og_image %}
+        <meta property="og:image" content="{{ get_url(path=config.extra.default_og_image) }}">
+    {% endif %}
+
+    {% block description %}
+      {% if page.description %}
+        <meta name="description" content="{{ page.description }}" />
+      {% else %}
+        <meta name="description" content="{{ config.description }}" />
+      {% endif %}
+    {% endblock description %}
+
+    {% for link in config.extra.nav %}
+      <link rel="prerender" href="{{ link.path }}" />
+    {% endfor %}
+
+    {% set icon = resize_image(path=config.extra.icon, width=70, height=70, op="fill") -%}
+    <link rel="prefetch" href="{{ icon.url }}" />
+
+    <title>
+      {% block title %}
+        {% if page.title %}
+          {{ page.title }}
+        {% else %}
+          {{ config.title }}
+        {% endif %}
+      {% endblock title %}
+    </title>
+
+    {% block head %}{% endblock head %}
+    <link rel="stylesheet" href="{{ get_url(path="style.css") | safe }}">
+    {% block styles %}{% endblock styles %}
+
+    {% block posthead %}{% endblock posthead %}
+  </head>
+  <body>
+    {% block header %}
+      <header>
+        <a class="profile-icon" href="/">
+          <img src="{{ icon.url }}" alt="Icon">
+        </a>
+        <nav>
+          {% for link in config.extra.nav %}
+            <a href="{{ link.path }}">{{ link.name }}</a>
+          {% endfor %}
+        </nav>
+      </header>
+    {% endblock header %}
+    <main>
+    {% block content %} {% endblock content %}
+    </main>
+    <footer class="footer-page">
+    {% block footer %}
+
+      {% if config.extra.footer_text %}
+        <hr>
+        {{ config.extra.footer_text | markdown | safe }}
+      {% endif %}
+    {% endblock footer %}
+    </footer>
+  </body>
+</html>

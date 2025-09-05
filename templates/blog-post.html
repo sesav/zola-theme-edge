@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block pagehead %}
+  {% if page.earlier %}
+    <link rel="prerender" href="{{ page.earlier.permalink }}">
+  {% endif %}
+
+  {% if page.later %}
+    <link rel="prerender" href="{{ page.later.permalink }}">
+  {% endif %}
+
+  {% for tag in page.taxonomies.tags %}
+    <link rel="prerender" href="{{ get_taxonomy_url(kind="tags", name=tag) }}">
+  {% endfor %}
+
+{% endblock %}
+
+{% block content %}
+  <div class="page-title">
+    <h1 class="post-title">{{ page.title }}</h1>
+
+    <div class="meta-section">
+      <span class="date-read">
+        {{ page.date| date(format="%B %d, %Y") }} - {{ page.word_count }} words - {{ page.reading_time }} mins
+      </span>
+
+      {% if page.taxonomies.tags %}
+        <span class="tags">
+          {% for tag in page.taxonomies.tags %}
+            <a href="{{ get_taxonomy_url(kind="tags", name=tag) }}" class="secondary-link">#{{ tag }}</a>
+          {% endfor %}
+        </span>
+      {% endif %}
+
+      {% if page.taxonomies.categories %}
+        <span class="tags">
+          {% for category in page.taxonomies.categories %}
+          in <strong><a href="{{ get_taxonomy_url(kind="categories", name=category) }}" class="secondary-link"> {{ category }}</a></strong>
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div>
+    {{ page.content | safe }}
+  </div>
+
+{% endblock content %}

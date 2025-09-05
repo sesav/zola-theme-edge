@@ -1,0 +1,87 @@
+# Configuration file for the Edge theme for Zola
+# This file configures the main site settings, theme options, and content generation
+
+# Base URL of your site - REQUIRED
+# This is used for generating absolute URLs throughout the site
+base_url = "https://example.com"
+
+# Default language for the site content
+# Used for HTML lang attribute and content localization
+default_language = "en"
+
+# Content generation settings
+# Generate RSS/Atom feeds for the site and taxonomies
+generate_feeds = true
+# Generate robots.txt file for search engine crawlers
+generate_robots_txt = true
+# Generate XML sitemap for better SEO
+generate_sitemap = true
+
+# Asset processing settings  
+# Compile Sass/SCSS files to CSS
+compile_sass = true
+# Build search index (disabled for this theme)
+build_search_index = false
+# Minify HTML output (disabled for faster builds)
+minify_html = false
+
+# Site metadata
+# Main title displayed in browser tabs and headers
+title = "Edge Theme for Zola"
+# Site description for SEO and meta tags
+description = "This is a demo site"
+# Site author information
+author = "Sergey Silaev"
+
+# Taxonomies define how content is categorized
+# Each taxonomy creates archive pages and can have feeds
+taxonomies = [
+  { name = "tags", feed = true },
+  { name = "categories", feed = true}
+]
+
+# Markdown processing configuration
+[markdown]
+# Enable syntax highlighting for code blocks
+highlight_code = true
+# Theme for syntax highlighting (options: base16-*, InspiredGitHub, Solarized, etc.)
+highlight_theme = "boron"
+# Convert emoji shortcodes to Unicode emoji
+render_emoji = true
+# Convert straight quotes to curly quotes, dashes to em-dashes, etc.
+smart_punctuation = true
+
+# Extra configuration for theme-specific settings
+[extra]
+# Site icon/favicon file
+icon = "icon.jpg"
+# Primary color for the theme
+primary = "#002fff"
+# Secondary color for the theme
+secondary = "#555"
+
+# Navigation menu items
+nav = [
+  { name = "About", path = "/about/" },
+  { name = "Blog", path = "/blog/" },
+  { name = "Tags", path = "/tags/" },
+  { name = "Categories", path = "/categories/" },
+]
+
+# Contact email address
+email = "hello@8am.dev"
+# Text label for latest posts section
+latest_posts = "Latest posts:"
+# Number of latest posts to display
+latest_posts_num = 5
+
+# Footer content (supports Markdown formatting)
+footer_text = """
+This site is powered by [Zola](https://www.getzola.org/) written in Rust ❤️
+© 2025 Sergey Silaev. [Souce code](https://github.com/sesav/zola-theme-edge) of this template.
+"""
+
+# 404 error page message
+not_found_message = """
+Couldn't find the page you are looking for..
+"""
